@@ -315,8 +315,15 @@ function startFallingFlowers(){
       enableBtn.classList.remove('hidden');
       enableBtn.addEventListener('click', (e)=>{
         e.preventDefault();
+        console.log('enableBtn clicked');
         activateAudio();
       }, {once:true});
+      // also listen for touchstart for mobile reliability
+      enableBtn.addEventListener('touchstart', (e)=>{
+        e.preventDefault();
+        console.log('enableBtn touchstart');
+        activateAudio();
+      }, {once:true, passive:false});
     }
   } catch(e){}
 

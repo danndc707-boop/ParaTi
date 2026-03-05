@@ -144,3 +144,7 @@ body{overflow:hidden;background:linear-gradient(180deg,var(--sky-top),#12243b);}
 /* Botón central para activar audio/subtítulos */
 .enable-audio-btn{position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);z-index:130;background:linear-gradient(180deg,#ff7a59,#ff4f3a);color:#fff;border:0;padding:16px 28px;border-radius:12px;font-size:18px;font-weight:700;cursor:pointer;box-shadow:0 12px 40px rgba(12,20,30,0.5)}
 .enable-audio-btn.hidden{opacity:0;pointer-events:none;transform:translate(-50%,-50%) scale(0.98);transition:opacity 420ms ease,transform 420ms ease}
+
+@media (max-width:600px){
+    .enable-audio-btn{padding:20px 34px;font-size:20px;border-radius:14px}
+}
