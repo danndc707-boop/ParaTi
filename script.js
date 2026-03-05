@@ -8,14 +8,14 @@ const subtitleEl = document.getElementById('subtitle');
 
 const lyricSequence = [
   {es:'Sabes lo que estoy pensando',en:"You know what I'm thinkin'"},
-  {es:'lo veo en tus ojos',en:" see it in your eyes"},
+  {es:'Lo veo en tus ojos',en:" see it in your eyes"},
   {es:'Odias quererme',en:"You hate that you want me"},
-  {es:'odio cuando lloras',en:"hate it when you cry"},
+  {es:'Odio cuando lloras',en:"hate it when you cry"},
   {es:'Tienes miedo de estar sola, especialmente de noche',en:"You're scared to be lonely, 'specially in the night"},
   {es:'Tengo miedo de extrañarte',en:"I'm scared that I'll miss you"},
-  {es:'me pasa todo el tiempo',en:"happens every time"},
+  {es:'Me pasa todo el tiempo',en:"happens every time"},
   {es:'No quiero sentir esto',en:"I don't want this feelin'"},
-  {es:'no puedo soportar el amor',en:"I can't afford love"},
+  {es:'No puedo soportar el amor',en:"I can't afford love"},
   {es:'Trato de encontrar una razón que nos separe',en:"I try to find a reason to pull us apart"},
   {es:'No está funcionando, pues eres perfecta',en:"It ain't workin' 'cause you're perfect"},
   {es:'Y sé que vales la pena',en:"And I know that you're worth it"},
@@ -315,15 +315,8 @@ function startFallingFlowers(){
       enableBtn.classList.remove('hidden');
       enableBtn.addEventListener('click', (e)=>{
         e.preventDefault();
-        console.log('enableBtn clicked');
         activateAudio();
       }, {once:true});
-      // also listen for touchstart for mobile reliability
-      enableBtn.addEventListener('touchstart', (e)=>{
-        e.preventDefault();
-        console.log('enableBtn touchstart');
-        activateAudio();
-      }, {once:true, passive:false});
     }
   } catch(e){}
 
