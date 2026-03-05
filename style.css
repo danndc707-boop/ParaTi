@@ -1,0 +1,146 @@
+:root{
+    --sky-top:#0b1f3a;
+    --sky-mid:#ff7a59;
+    --sky-bottom:#1b0526;
+    --sun:#ffd166;
+    --accent:#ff5e7a;
+}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0;font-family:'Poppins',system-ui,Arial,sans-serif}
+body{overflow:hidden;background:linear-gradient(180deg,var(--sky-top),#12243b);}
+
+#scene{position:relative;height:100vh;width:100vw;display:block;overflow:hidden}
+
+.sky{position:absolute;inset:0;background:linear-gradient(180deg,#0b1f3a 0%, #ff9a76 55%, #1b0526 100%);animation:skyShift 8s ease-in-out infinite alternate}
+
+.sun{position:absolute;left:50%;transform:translateX(-50%);width:260px;height:260px;border-radius:50%;top:10%;background:radial-gradient(circle at 35% 30%, #fff2b8 0%, var(--sun) 25%, #ff8a5b 60%, transparent 75%);filter:blur(0.6px);box-shadow:0 0 80px rgba(255,150,90,0.45);animation:sink 8s ease-in-out infinite alternate}
+
+.sun-reflection{position:absolute;left:50%;transform:translateX(-50%);bottom:28%;width:340px;height:80px;background:linear-gradient(180deg,rgba(255,200,120,0.45),rgba(255,120,60,0.08));border-radius:50%;filter:blur(12px);opacity:0.7;animation:reflect 8s ease-in-out infinite alternate}
+
+.clouds{position:absolute;inset:6% 0 auto 0;pointer-events:none}
+.cloud{position:absolute;background:rgba(255,255,255,0.14);border-radius:40px;filter:blur(6px)}
+.cloud.c1{width:220px;height:60px;left:8%;top:8%;animation:drift1 20s linear infinite}
+.cloud.c2{width:300px;height:80px;left:55%;top:4%;animation:drift2 28s linear infinite}
+.cloud.c3{width:180px;height:50px;left:75%;top:14%;animation:drift1 25s linear infinite}
+
+.mountains{position:absolute;left:0;right:0;bottom:0;height:45%;pointer-events:none}
+.mount{position:absolute;bottom:0;background:linear-gradient(180deg,#0d0f14 0%, #16202a 80%);border-radius:50% 50% 0 0}
+.mount.m1{left:-10%;width:80%;height:60%;transform:skewX(-6deg);opacity:0.95}
+.mount.m2{left:20%;width:70%;height:40%;opacity:0.9}
+.mount.m3{left:55%;width:60%;height:50%;opacity:0.92}
+
+.foreground{position:absolute;left:0;right:0;bottom:0;height:12%;background:linear-gradient(180deg,rgba(0,0,0,0.0),rgba(0,0,0,0.6))}
+
+@keyframes skyShift{from{background:linear-gradient(180deg,#0b1f3a 0%, #ff9a76 55%, #1b0526 100%)}to{background:linear-gradient(180deg,#031028 0%, #ff6f4a 55%, #14041a 100%)}}
+@keyframes sink{from{top:8%}to{top:36%}}
+@keyframes reflect{from{bottom:28%;opacity:0.9}to{bottom:12%;opacity:0.35}}
+@keyframes drift1{from{transform:translateX(0)}to{transform:translateX(120vw)}}
+@keyframes drift2{from{transform:translateX(0)}to{transform:translateX(-130vw)}}
+
+/* make responsive smaller devices */
+@media (max-width:600px){
+    .sun{width:160px;height:160px}
+    .sun-reflection{width:240px}
+}
+
+/* Controles visibles para depuración y restauración */
+.controls{position:fixed;right:18px;bottom:18px;z-index:60}
+.controls button{background:linear-gradient(180deg,#ff7a59,#ff4f3a);border:0;color:#fff;padding:8px 12px;border-radius:10px;cursor:pointer;font-weight:600;box-shadow:0 6px 18px rgba(12,20,30,0.45);margin-left:8px}
+.controls button:active{transform:translateY(1px)}
+
+/* Marca visible en esquina */
+.watermark{position:fixed;right:12px;top:12px;color:rgba(255,180,120,0.22);font-family:'Poppins',sans-serif;font-weight:700;letter-spacing:1px;z-index:60;font-size:13px;text-shadow:0 2px 8px rgba(0,0,0,0.6)}
+
+/* Subtítulos */
+.subtitle{position:fixed;left:50%;transform:translateX(-50%);bottom:22%;width:min(92%,900px);text-align:center;z-index:80;pointer-events:none}
+.subtitle p{margin:0 auto;padding:6px 12px;border-radius:8px;display:block;background:rgba(0,0,0,0.18);backdrop-filter:blur(4px);max-width:86%;text-align:center}
+.sub-es{display:block;color:#fff7ec;font-family:'Playfair Display',serif;font-size:clamp(20px,3.6vw,34px);font-weight:700;letter-spacing:0.4px}
+.sub-en{display:block;color:#ffd9c2;font-family:'Poppins',sans-serif;font-size:clamp(12px,1.6vw,16px);font-weight:300;margin-top:6px;text-align:center}
+.subtitle .hidden{opacity:0;transform:translateY(10px);transition:opacity 300ms ease,transform 300ms ease}
+.subtitle .visible{opacity:1;transform:translateY(0);transition:opacity 300ms ease,transform 300ms ease}
+
+/* Controles rápidos sobre subtítulos */
+.subtitle-controls{position:fixed;left:18px;bottom:18px;z-index:60}
+.subtitle-controls button{background:transparent;border:1px solid rgba(255,255,255,0.12);color:#fff;padding:6px 10px;border-radius:8px;margin-right:8px}
+
+/* Firma visible debajo de los subtítulos/ letras */
+.author-sign{position:fixed;left:50%;transform:translateX(-50%);bottom:18%;z-index:80;color:#ffd9c2;font-family:'Poppins',sans-serif;font-weight:700;letter-spacing:1.2px;background:rgba(0,0,0,0.12);padding:6px 12px;border-radius:8px}
+
+/* Ajustes: ocultar antiguo watermark si existe */
+.watermark{display:none}
+
+/* Hide editor by default */
+.editor-panel[aria-hidden="true"]{display:none}
+
+/* --- Falling flowers (background, behind main content) --- */
+.falling-flowers{position:absolute;left:0;top:0;right:0;bottom:0;pointer-events:none;z-index:35;overflow:hidden}
+.falling-flowers{background:transparent}
+.falling-flowers .flower{position:absolute;top:-10vh;pointer-events:none;will-change:transform,opacity;display:block;background-repeat:no-repeat;background-position:center;background-size:contain;border-radius:6px}
+
+/* Keyframes: caída, balanceo lateral y rotación suave */
+@keyframes fall{
+    0%{transform:translateY(-20vh) translateX(0) rotate(0deg);opacity:0}
+    10%{opacity:1}
+    100%{transform:translateY(120vh) translateX(var(--drift, 0px)) rotate(var(--end-rot, 0deg));opacity:1}
+}
+
+@keyframes sway{
+    0%{transform:translateY(0) rotate(var(--sstart, -3deg))}
+    50%{transform:translateY(0) rotate(var(--smid, 3deg))}
+    100%{transform:translateY(0) rotate(var(--send, -3deg))}
+}
+
+@keyframes spin{
+    from{transform:rotate(0deg)}
+    to{transform:rotate(360deg)}
+}
+
+/* Each element will combine animations via inline style; default sizes if not provided */
+.falling-flowers .flower{width:56px;height:56px;opacity:0.95}
+
+/* Depth effect: smaller = farther and more transparent */
+.flower.depth-1{width:40px;height:40px;opacity:0.65}
+.flower.depth-2{width:56px;height:56px;opacity:0.85}
+.flower.depth-3{width:84px;height:84px;opacity:1}
+
+/* Ensure main content (subtitles, author) remain above the falling flowers */
+.subtitle, .author-sign{z-index:80;position:fixed}
+
+/* Final scene: ocultar y pausar elementos del atardecer */
+.final-scene #scene .sky,
+.final-scene #scene .sun,
+.final-scene #scene .sun-reflection,
+.final-scene #scene .clouds,
+.final-scene #scene .mountains,
+.final-scene #scene .foreground{
+    opacity:0;pointer-events:none;animation-play-state:paused;transition:opacity 600ms ease
+}
+
+/* Cuando el estado final está activo, el contenedor de flores se muestra sobre fondo negro con estrellas */
+.final-scene .falling-flowers{
+    z-index:60; transition:background 400ms ease; background:transparent
+}
+
+/* Starfield element placed behind centered text */
+.starfield{position:absolute;inset:0;pointer-events:none;z-index:8;opacity:0;transition:opacity 400ms ease}
+.final-scene .starfield{opacity:1}
+.starfield::before{
+    content:"";position:absolute;inset:0;background-image:radial-gradient(#fff 0.8px, transparent 1px), radial-gradient(#fff 0.6px, transparent 1px);background-size:140px 140px,70px 70px;opacity:0.85;mix-blend-mode:screen;filter:blur(0.6px);pointer-events:none;z-index:1
+}
+
+/* Centered large text for final scene */
+.center-text{position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);z-index:20;pointer-events:none;opacity:0;transition:opacity 500ms ease;font-family:'Playfair Display',serif;color:#d40000;text-align:center;text-shadow:0 6px 18px rgba(0,0,0,0.6);font-weight:800;letter-spacing:2px}
+.final-scene .center-text{opacity:1;font-size:clamp(36px,8vw,120px)}
+
+/* Ensure flowers sit in front of the centered text (flowers fall in front) */
+.final-scene .falling-flowers{z-index:60}
+.final-scene .falling-flowers::before{z-index:5}
+
+/* Overlay minimalista para activar audio/subtítulos */
+.activation-overlay{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:linear-gradient(180deg,rgba(0,0,0,0.45),rgba(0,0,0,0.55));z-index:120;text-align:center;padding:24px}
+.activation-overlay .activation-text{color:#fff;font-size:clamp(16px,2.2vw,22px);background:rgba(0,0,0,0.28);backdrop-filter:blur(6px);padding:18px 26px;border-radius:12px;box-shadow:0 8px 30px rgba(0,0,0,0.6);font-weight:600}
+.activation-overlay.hidden{opacity:0;pointer-events:none;transition:opacity 420ms ease}
+
+/* Botón central para activar audio/subtítulos */
+.enable-audio-btn{position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);z-index:130;background:linear-gradient(180deg,#ff7a59,#ff4f3a);color:#fff;border:0;padding:16px 28px;border-radius:12px;font-size:18px;font-weight:700;cursor:pointer;box-shadow:0 12px 40px rgba(12,20,30,0.5)}
+.enable-audio-btn.hidden{opacity:0;pointer-events:none;transform:translate(-50%,-50%) scale(0.98);transition:opacity 420ms ease,transform 420ms ease}
